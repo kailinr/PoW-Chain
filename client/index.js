@@ -1,7 +1,40 @@
 import "./index.scss";
 const {PUBLIC_KEY} = require('../config');
 
+//Get address button
+document.getElementById("addressSubmit").addEventListener('click', () => {
+  
+  const addressInput = document.querySelector("#address").value;
+  console.log(addressInput);
+  
+  const params = {
+    method: "verifyAddress",
+    params: [addressInput],
+    jsonrpc: "2.0",
+    // id: 1
+  }
+
+  const request = new Request('http://localhost:3032/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params)
+  });
+
+  fetch(request)
+    .then(response => {
+      return response.json();
+    }).then(response => {
+      console.log(response);
+      document.querySelector("verify").innerHTML = response.privateKey;
+
+      // alert(`Your Verification Status is ${privateKey}`);
+    });
+});
+
+
+
 function getBalance() {
+  //todo: get public 
   const address = PUBLIC_KEY;
 
   const params = {
