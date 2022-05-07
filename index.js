@@ -5,10 +5,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-// localhost can have cross origin errors
-// depending on the browser you use!
 app.use(cors());
 app.use(express.json());
+
+/////////////// SERVER /////////////////
 
 app.post('/', (req, res) => {
   const {method, params} = req.body;
