@@ -9,6 +9,7 @@
     "elliptic": "^6.5.3",
     "express": "^4.17.1",
     "jayson": "^3.3.3",
+    "parceljs": "^0.0.1",
     "yargs": "^15.3.1"
   },
   "devDependencies": {

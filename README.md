@@ -1,6 +1,6 @@
 # Proof of Work Chain
 
-This is an example Proof of Work Chain with a client/server application.
+This is an example Proof of Work Chain with a client/server application!
 
 ## Server
 
