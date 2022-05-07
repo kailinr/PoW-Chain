@@ -14,5 +14,10 @@
   },
   "devDependencies": {
     "sass": "^1.26.10"
+  },
+  "scripts": {
+      "dev": "parcel client/index.html",
+      "build": "parcel build client/index.html"
+    
   }
 }

@@ -9,10 +9,19 @@ First you'll want to start the server. You'll want to install all the dependenci
 Once you've installed the dependencies you can run the server with `node index` or `nodemon index` (the latter of which will restart the server if you make any changes!). This currently starts your server at port `3032` by default.
 
 ## Client
+The client is compiled with [parceljs](https://en.parceljs.org/getting_started.html). A server will be started by defaul at http://localhost:1234/
 
-To start the client application you'll need to install [parceljs](https://parceljs.org/getting_started.html).
 
-Once you have done that you can navigate to the `/client` folder in a terminal and run `parcel index.html` which will start your client at port `1234` by default.
+To start the client application in development:
+```bash
+npm run dev
+```
+To start in production, run:
+
+```bash
+npm run build
+```
+
 
 ## Utilities
 
