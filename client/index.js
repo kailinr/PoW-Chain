@@ -8,7 +8,7 @@ const {msgHex, signature} = require('./crypto')
 //GetAddress Button
 document.getElementById("addressSubmit").addEventListener('click', () => {
   const addressInput = document.querySelector("#address").value;
-  const msg = "This is a test"
+  const msg = "This is a verification Message"
 
   //Sign Message
   const MESSAGE = msgHex(msg)
@@ -34,10 +34,9 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     }).then(response => {
     /////// DOM //////
     if (response.isValid == true) {
-      console.log(response.isValid);
-      console.log(response.addressInput);
+      console.log('verified');
       const verify = document.querySelector('.verify');
-      const addressdiv = document.querySelector('#addressdiv');
+      const addressdiv = document.querySelector('#addressdiv'); //hide button
       verify.innerText = 'Successfully Verified!';
       const remove = () => {
       // addressdiv.classList.add('hide');

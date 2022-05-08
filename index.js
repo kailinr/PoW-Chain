@@ -1,5 +1,5 @@
 const {startMining, stopMining} = require('./mine');
-const {PORT} = require('./config');
+const {PORT, PUBLIC_KEY} = require('./config');
 const {utxos, blockchain} = require('./db');
 const express = require('express');
 const app = express();
@@ -29,7 +29,10 @@ app.post('/', (req, res) => {
     const [PUB, MESSAGE, SIG] = params;
     const pubKey = ec.keyFromPublic(PUB, 'hex');
     const isValid = pubKey.verify(MESSAGE, SIG);
+    /////// Verifiy onfile pubkey + signature //////
+    if (PUB === PUBLIC_KEY && isValid === true) {
     res.send({isValid: isValid, addressInput: PUB}); 
+    }
     return;
 }
   if(method === "getBalance") {
