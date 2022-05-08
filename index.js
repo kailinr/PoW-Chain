@@ -4,7 +4,11 @@ const {utxos, blockchain} = require('./db');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {PRIVATE_KEY} = require('./config');
+const {PRIVATE_KEY} = require('./config'); //todo: remove - used verify
+
+const EC = require('elliptic').ec;
+const ec = new EC('secp256k1');
+
 
 app.use(cors());
 app.use(express.json());
@@ -23,13 +27,12 @@ app.post('/', (req, res) => {
       res.send({ blockNumber: blockchain.blockHeight() });
       return;
   }
-  //Temp Address Verification
+  //Address Verification!
   if(method === 'verifyAddress') {
-    const [PUB, SIG, MESSAGE] = params;
-
-    //toDo: create verifyaddress() function
-
-    res.send({privateKey: PRIVATE_KEY}); //todo: change this to 'True/false' verification result
+    const [PUB, MESSAGE, SIG] = params;
+    const pubKey = ec.keyFromPublic(PUB, 'hex');
+    const isValid = pubKey.verify(MESSAGE, SIG);
+    res.send({isValid: isValid}); 
     return;
 }
   if(method === "getBalance") {

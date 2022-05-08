@@ -23,8 +23,7 @@ function mine() {
   if(!mining) return;
 
   const block = new Block();
-
-  // TODO: add transactions from the mempool
+  // Dan's Todo: add transactions from the mempool
 
   const coinbaseUTXO = new UTXO(PUBLIC_KEY, BLOCK_REWARD);
   const coinbaseTX = new Transaction([], [coinbaseUTXO]);

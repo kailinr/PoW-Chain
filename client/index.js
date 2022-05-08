@@ -1,6 +1,6 @@
 import "./index.scss";
 const {PUBLIC_KEY} = require('../config'); //PUBCLIC used by getBalance todo:fix
-const {pub, msgHex, signature} = require('./crypto')
+const {msgHex, signature} = require('./crypto')
 
 let addressInput;
 
@@ -14,18 +14,14 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
   //Sign Message
   const MESSAGE = msgHex(msg)
   const SIG = signature(MESSAGE)
-  const PUB = pub(addressInput) 
-  // console.log('MESSAGE:', MESSAGE);
-  // console.log('SIGNATURE:', SIG);
-  // console.log('PUB', PUB);
-
-  //send to serv: pub, msgHex, signature 
+  const PUB = PUBLIC_KEY  //todo: repaste String(addressInput)
+  //String(addressInput)
   
   const params = {
     method: "verifyAddress",
-    params: [PUB, SIG, MESSAGE],
+    params: [PUB, MESSAGE, SIG],
     jsonrpc: "2.0", 
-    // id: 1
+    id: 1
   }
 
   const request = new Request('http://localhost:3032/', {
@@ -38,13 +34,14 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     .then(response => {
       return response.json();
     }).then(response => {
-      //todo: privateKey Prints - fix 
-      console.log(response);
-    //todo: change to verification result message
-      document.querySelector(".verify").innerHTML = response.privateKey;
+      console.log(response.isValid);
+      //Verification DOM
+      const statusText = response.isValid === true 
+        ? 'Successfully Verified!'
+        : alert(`Verification Failed - You are not authorized`);
+        document.querySelector(".verify").textContent = statusText;
+    }).catch(e => console.log(e.message));
 
-      // alert(`Your Verification Status is ${privateKey}`);
-    });
 });
 
 
