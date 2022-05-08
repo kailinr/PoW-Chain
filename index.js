@@ -4,7 +4,6 @@ const {utxos, blockchain} = require('./db');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const {PRIVATE_KEY} = require('./config'); //todo: remove - used verify
 
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
@@ -32,7 +31,7 @@ app.post('/', (req, res) => {
     const [PUB, MESSAGE, SIG] = params;
     const pubKey = ec.keyFromPublic(PUB, 'hex');
     const isValid = pubKey.verify(MESSAGE, SIG);
-    res.send({isValid: isValid}); 
+    res.send({isValid: isValid, addressInput: PUB}); 
     return;
 }
   if(method === "getBalance") {

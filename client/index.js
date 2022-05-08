@@ -1,21 +1,19 @@
 import "./index.scss";
-const {PUBLIC_KEY} = require('../config'); //PUBCLIC used by getBalance todo:fix
+const {PUBLIC_KEY} = require('../config'); // by getBalance todo:fix
 const {msgHex, signature} = require('./crypto')
 
-let addressInput;
+
+////////////// CLIENT /////////////////
 
 //GetAddress Button
 document.getElementById("addressSubmit").addEventListener('click', () => {
-  //DOM
-  addressInput = document.querySelector("#address").value; //publicAddress
+  const addressInput = document.querySelector("#address").value;
   const msg = "This is a test"
-  //document.querySelector(".msg").value; //todo: create msg in DOM
 
   //Sign Message
   const MESSAGE = msgHex(msg)
   const SIG = signature(MESSAGE)
-  const PUB = PUBLIC_KEY  //todo: repaste String(addressInput)
-  //String(addressInput)
+  const PUB = addressInput
   
   const params = {
     method: "verifyAddress",
@@ -34,13 +32,26 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     .then(response => {
       return response.json();
     }).then(response => {
+
+    
+    /////// DOM //////
+
+    if (response.isValid == true) {
       console.log(response.isValid);
-      //Verification DOM
-      const statusText = response.isValid === true 
-        ? 'Successfully Verified!'
-        : alert(`Verification Failed - You are not authorized`);
-        document.querySelector(".verify").textContent = statusText;
-    }).catch(e => console.log(e.message));
+      console.log(response.addressInput);
+      document.querySelector('.verify').innerText = 'Successfully Verified!';
+      
+      // const statusText = response.isValid === true 
+      //   ? 'Successfully Verified!'
+      //   : alert(`Verification Failed - You are not authorized`);
+      //   document.querySelector(".verify").textContent = statusText;
+    } else {
+      throw new Error('isValid False: Verification Failed');
+    }
+  }).catch(e => {
+    console.log(e.message);
+    alert(`Verification Failed - You are not authorized. Please try again.`);
+  });
 
 });
 
