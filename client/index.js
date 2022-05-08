@@ -34,11 +34,12 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     /////// DOM //////
     if (response.isValid == true) {
       console.log('Successfully Authenticated');
+      document.querySelector('#mining').classList.remove('hide')
       const verify = document.querySelector('.verify');
-      const addressdiv = document.querySelector('#addressdiv'); //hide button
       verify.innerText = 'Successfully Verified!';
+      const addressdiv = document.querySelector('#addressdiv'); //hide button
       const remove = () => {
-        // addressdiv.classList.add('hide');
+        addressdiv.classList.add('hide');
         verify.innerText = "";
       }
       setTimeout(() => remove(), 2000);
