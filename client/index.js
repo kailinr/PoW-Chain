@@ -1,5 +1,4 @@
 import "./index.scss";
-const {PUBLIC_KEY, PRIVATE_KEY} = require('../config'); // by getBalance todo:fix
 const {msgHex, signature} = require('./crypto')
 
 let addressInput;
@@ -10,7 +9,6 @@ let addressInput;
 document.getElementById("addressSubmit").addEventListener('click', () => {
   addressInput = document.querySelector("#address").value;
   const msg = "This is a verification Message"
-
   /////// Sign Message //////
   const MESSAGE = msgHex(msg)
   const SIG = signature(MESSAGE)
@@ -22,7 +20,6 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     jsonrpc: "2.0", 
     id: 1
   }
-
   const request = new Request('http://localhost:3032/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -34,23 +31,18 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     .then(response => {
       return response.json();
     }).then(response => {
-      /////// DOM //////
+    /////// DOM //////
     if (response.isValid == true) {
-
-      // getBalance(response.isValid)
-
-      console.log('verified');
+      console.log('Successfully Authenticated');
       const verify = document.querySelector('.verify');
       const addressdiv = document.querySelector('#addressdiv'); //hide button
       verify.innerText = 'Successfully Verified!';
       const remove = () => {
-      // addressdiv.classList.add('hide');
-      verify.innerText = "";
+        // addressdiv.classList.add('hide');
+        verify.innerText = "";
       }
       setTimeout(() => remove(), 2000);
-    } else {
-      throw new Error('isValid False: Verification Failed');
-    }
+    } else throw new Error('isValid False: Verification Failed');
   }).catch(e => {
     console.log(e.message);
     alert(`Verification Failed - You are not authorized. Please try again.`);
@@ -60,7 +52,7 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
 
 function getBalance() {
  
-  const address = addressInput;  //todo: pass public from DOM public 
+  const address = addressInput;
     
     const params = {
       method: "getBalance",
@@ -73,8 +65,7 @@ function getBalance() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params)
-    });
-
+    })
 
   fetch(request)
     .then(response => {
@@ -98,7 +89,10 @@ document.getElementById("start-mining").addEventListener('click', () => {
     .then(response => {
       return response.json();
     }).then(({blockNumber}) => {
-      alert(`Started @ block ${blockNumber}`);
+      alert(`Success! Started @ block ${blockNumber}`);
+    }).catch(e => {
+      console.log(e.message);
+      console.log('Unauthorized Mining Request')
     });
 });
 

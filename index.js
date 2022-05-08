@@ -10,8 +10,9 @@ const ec = new EC('secp256k1');
 app.use(cors());
 app.use(express.json());
 
-let isVerified = false; //Todo: implement this in mining opp
-const setVerified = () => isVerified = true;
+//Todo: implement this in mining opp
+// let isVerified = false; 
+// const setVerified = () => isVerified = true;
 // const resetVerified = () => isVerified = false;
 
 
@@ -26,23 +27,21 @@ app.post('/', (req, res) => {
     const pubKey = ec.keyFromPublic(PUB, 'hex');
     const isValid = pubKey.verify(MESSAGE, SIG);
     if (PUB === PUBLIC_KEY && isValid === true) {
-      console.log('BEFORE', isVerified);
-      setVerified();
-      console.log('AFTER', isVerified);
-      
+      //set isvalid app variable
+      app.locals.isValid = true;
     res.send({isValid: isValid, addressInput: PUB}); 
     }
     return;
 }
-  if(method === 'startMining') {
-      console.log(isVerified);
-    
-      if (isVerified = true) startMining();
+  if(method === 'startMining' && app.locals.isValid) {
+    console.log("Start Mining Authentication:", app.locals.isValid);
+      startMining();
       res.send({ blockNumber: blockchain.blockHeight() });
       return;
   }
-  if(method === 'stopMining') {
-      if (isVerified = true) stopMining();
+  if(method === 'stopMining' && app.locals.isValid) {
+    console.log("Stop Mining Authentication:", app.locals.isValid);
+      stopMining();
       res.send({ blockNumber: blockchain.blockHeight() });
       return;
   }
