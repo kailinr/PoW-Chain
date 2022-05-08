@@ -5,11 +5,11 @@ let addressInput;
 
 ////////////// CLIENT /////////////////
 
-//GetAddress Button
+/////// GET ADDRESS //////
 document.getElementById("addressSubmit").addEventListener('click', () => {
   addressInput = document.querySelector("#address").value;
   const msg = "This is a verification Message"
-  /////// Sign Message //////
+  /////// SIGN //////
   const MESSAGE = msgHex(msg)
   const SIG = signature(MESSAGE)
   const PUB = addressInput
@@ -26,7 +26,7 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     body: JSON.stringify(params)
   });
 
-  /////// VERIFIED //////
+  /////// VERIFIY REQUEST //////
   fetch(request)
     .then(response => {
       return response.json();
@@ -79,7 +79,7 @@ function getBalance() {
 
 setInterval(getBalance, 1000);
 
-//StartMining Button
+//StartMining
 document.getElementById("start-mining").addEventListener('click', () => {
   const request = new Request('http://localhost:3032/', {
     method: 'POST',
@@ -98,7 +98,7 @@ document.getElementById("start-mining").addEventListener('click', () => {
     });
 });
 
-//StopMining Button
+//StopMining
 document.getElementById("stop-mining").addEventListener('click', () => {
   const request = new Request('http://localhost:3032/', {
     method: 'POST',

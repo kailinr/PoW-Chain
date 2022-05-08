@@ -10,24 +10,18 @@ const ec = new EC('secp256k1');
 app.use(cors());
 app.use(express.json());
 
-//Todo: implement this in mining opp
-// let isVerified = false; 
-// const setVerified = () => isVerified = true;
-// const resetVerified = () => isVerified = false;
-
-
 ////////////// SERVER /////////////////
 
 app.post('/', (req, res) => {
   const {method, params} = req.body;
 
-   /////// Address Verification //////
+/////// Handle Verification //////
    if(method === 'verifyAddress') {
     const [PUB, MESSAGE, SIG] = params;
     const pubKey = ec.keyFromPublic(PUB, 'hex');
     const isValid = pubKey.verify(MESSAGE, SIG);
     if (PUB === PUBLIC_KEY && isValid === true) {
-      //set isvalid app variable
+      //set isvalid variable
       app.locals.isValid = true;
     res.send({isValid: isValid, addressInput: PUB}); 
     }
