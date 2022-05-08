@@ -28,7 +28,7 @@ app.post('/', (req, res) => {
       res.send({ blockNumber: blockchain.blockHeight() });
       return;
   }
-  //Temp Address Verification
+  //Temp Address Verification Post Method
   if(method === 'verifyAddress') {
     const [addressInput] = params;
       console.log('Public Key Received to Server', addressInput);

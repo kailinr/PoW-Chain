@@ -1,16 +1,30 @@
 import "./index.scss";
-const {PUBLIC_KEY} = require('../config');
+const {PUBLIC_KEY} = require('../config'); //PUBCLIC used by getBalance todo:fix
+const {pub, msgHex, signature} = require('./crypto')
 
-//Get address button
+let addressInput;
+
+//GetAddress Button
 document.getElementById("addressSubmit").addEventListener('click', () => {
+  //DOM
+  addressInput = document.querySelector("#address").value; //publicAddress
+  const msg = "This is a test"
+  //document.querySelector(".msg").value; //todo: create msg in DOM
+
+  //Sign Message
+  const MESSAGE = msgHex(msg)
+  const SIG = signature(MESSAGE)
+  const PUB = pub(addressInput) 
+  console.log('MESSAGE:', MESSAGE);
+  console.log('SIGNATURE:', SIG);
+  console.log('PUB', PUB);
   
-  const addressInput = document.querySelector("#address").value;
-  console.log(addressInput);
+
   
   const params = {
     method: "verifyAddress",
     params: [addressInput],
-    jsonrpc: "2.0",
+    jsonrpc: "2.0", 
     // id: 1
   }
 
@@ -24,8 +38,10 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     .then(response => {
       return response.json();
     }).then(response => {
+      //todo: privateKey Prints - fix 
       console.log(response);
-      document.querySelector("verify").innerHTML = response.privateKey;
+    //todo: change to verification result message
+      document.querySelector(".verify").innerHTML = response.privateKey;
 
       // alert(`Your Verification Status is ${privateKey}`);
     });
@@ -34,7 +50,7 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
 
 
 function getBalance() {
-  //todo: get public 
+  //todo: pass public from DOM public 
   const address = PUBLIC_KEY;
 
   const params = {
