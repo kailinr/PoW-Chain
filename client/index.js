@@ -36,7 +36,14 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     if (response.isValid == true) {
       console.log(response.isValid);
       console.log(response.addressInput);
-      document.querySelector('.verify').innerText = 'Successfully Verified!';
+      const verify = document.querySelector('.verify');
+      const addressdiv = document.querySelector('#addressdiv');
+      verify.innerText = 'Successfully Verified!';
+      const remove = () => {
+      addressdiv.classList.add('hide');
+      verify.innerText = "";
+      }
+      setTimeout(() => remove(), 2000);
     } else {
       throw new Error('isValid False: Verification Failed');
     }

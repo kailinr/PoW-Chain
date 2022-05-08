@@ -2,12 +2,16 @@
   <body>
 
     <div>
-      <h2>Verification</h2>
-     <div class="verify">
-     </div>
-    
+       <div class="verify">
+        <h2>Login Verification</h2>
+       <p>Please enter your public key</p></div>
     </div>
     
+    <div class="button" id="addressdiv">
+      <label for="address">Public Key:</label>
+      <input style = "width: 40vh" type="text" id="address" placeholder="Enter Hexadecimal Public Key"></input>
+      <button id="addressSubmit" type>Submit</button>
+     </div>
 
     <div class="button" id="start-mining">
       Start Mining!
@@ -16,15 +20,6 @@
     <div class="button" id="stop-mining">
       Stop Mining!
     </div>
-
-    <div class="button" id="addressdiv">
-     <label for="address">Address:</label>
-     <input type="text" id="address" placeholder="Enter Ethereum Address"></input>
-     <button id="addressSubmit" type>Submit</button>
-    </div>
-
-
-    
 
     <h2>
       Current Balance
