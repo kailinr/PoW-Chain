@@ -3,7 +3,7 @@
 This is an example Proof of Work Chain over a client/server model. The application requires public / private key digital signature authentication to unlock and use a mining dashboard.
 
 ## How it Works
-The application assumes the client holds both their own public and private keys. When a user authenticates using their public key, a digital signature is signed by the client's private key, and sent to the server to verify key ownership. The public key entered is then matched to the stored public key on file.
+The application assumes the client holds both their own public and private keys. When a user authenticates with their public key, a digital signature is generated using the associated private key, and sent to the server to verify key ownership. The public key entered is then matched to a stored public key on the server.
 
 Once a user is authenticated, a mining dashboard display will reveal and the client will be permitted to start and stop their miner, as well as view their mining address balance. Mining is not permitted without prior authentication.
 
