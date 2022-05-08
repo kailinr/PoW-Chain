@@ -32,19 +32,11 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     .then(response => {
       return response.json();
     }).then(response => {
-
-    
     /////// DOM //////
-
     if (response.isValid == true) {
       console.log(response.isValid);
       console.log(response.addressInput);
       document.querySelector('.verify').innerText = 'Successfully Verified!';
-      
-      // const statusText = response.isValid === true 
-      //   ? 'Successfully Verified!'
-      //   : alert(`Verification Failed - You are not authorized`);
-      //   document.querySelector(".verify").textContent = statusText;
     } else {
       throw new Error('isValid False: Verification Failed');
     }
@@ -54,7 +46,6 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
   });
 
 });
-
 
 
 function getBalance() {

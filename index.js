@@ -4,10 +4,8 @@ const {utxos, blockchain} = require('./db');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
-
 
 app.use(cors());
 app.use(express.json());
