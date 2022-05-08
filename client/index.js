@@ -37,9 +37,10 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
       document.querySelector('#mining').classList.remove('hide')
       const verify = document.querySelector('.verify');
       verify.innerText = 'Successfully Verified!';
-      const addressdiv = document.querySelector('#addressdiv'); //hide button
+      verify.classList.add('success');
+      const addressdiv = document.querySelector('#addressdiv');
+      addressdiv.classList.add('hide');
       const remove = () => {
-        addressdiv.classList.add('hide');
         verify.innerText = "";
       }
       setTimeout(() => remove(), 2000);
