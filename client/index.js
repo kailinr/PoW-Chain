@@ -1,16 +1,17 @@
 import "./index.scss";
-const {PUBLIC_KEY} = require('../config'); // by getBalance todo:fix
+const {PUBLIC_KEY, PRIVATE_KEY} = require('../config'); // by getBalance todo:fix
 const {msgHex, signature} = require('./crypto')
 
+let addressInput;
 
 ////////////// CLIENT /////////////////
 
 //GetAddress Button
 document.getElementById("addressSubmit").addEventListener('click', () => {
-  const addressInput = document.querySelector("#address").value;
+  addressInput = document.querySelector("#address").value;
   const msg = "This is a verification Message"
 
-  //Sign Message
+  /////// Sign Message //////
   const MESSAGE = msgHex(msg)
   const SIG = signature(MESSAGE)
   const PUB = addressInput
@@ -28,12 +29,16 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
     body: JSON.stringify(params)
   });
 
+  /////// VERIFIED //////
   fetch(request)
     .then(response => {
       return response.json();
     }).then(response => {
-    /////// DOM //////
+      /////// DOM //////
     if (response.isValid == true) {
+
+      // getBalance(response.isValid)
+
       console.log('verified');
       const verify = document.querySelector('.verify');
       const addressdiv = document.querySelector('#addressdiv'); //hide button
@@ -53,23 +58,23 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
 
 });
 
-
 function getBalance() {
-  //todo: pass public from DOM public 
-  const address = PUBLIC_KEY;
+ 
+  const address = addressInput;  //todo: pass public from DOM public 
+    
+    const params = {
+      method: "getBalance",
+      params: [address],
+      jsonrpc: "2.0",
+      id: 1
+    }
 
-  const params = {
-    method: "getBalance",
-    params: [address],
-    jsonrpc: "2.0",
-    id: 1
-  }
+    const request = new Request('http://localhost:3032/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params)
+    });
 
-  const request = new Request('http://localhost:3032/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(params)
-  });
 
   fetch(request)
     .then(response => {
