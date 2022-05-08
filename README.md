@@ -1,22 +1,22 @@
 # Proof of Work Chain
 
-This is an example Proof of Work Chain with a client/server application!
+This is an example Proof of Work Chain over a client/server model. The application requires public / private key digital signature authentication to unlock and use a mining dashboard.
 
-## Server
+## How it Works
+The application assumes the client holds both their own public and private keys. When a user authenticates using their public key, a digital signature is signed by the client's private key, and sent to the server to verify key ownership. The public key entered is then matched to the stored public key on file.
 
-First you'll want to start the server. You'll want to install all the dependencies with `npm i` from the root directory in the terminal.
+Once a user is authenticated, a mining dashboard display will reveal and the client will be permitted to start and stop their miner, as well as view their mining address balance. Mining is not permitted without prior authentication.
 
-Once you've installed the dependencies you can run the server with `node index` or `nodemon index` (the latter of which will restart the server if you make any changes!). This currently starts your server at port `3032` by default.
+## Start the Server
 
-## Client
-The client is compiled with [parceljs](https://en.parceljs.org/getting_started.html). A server will be started by defaul at http://localhost:1234/
+First, install all dependencies with `npm i` from the root directory in the terminal. Then, start the server with `node index` or `nodemon index`. This starts the server at port `3032` by default.
 
-
-To start the client application in development:
+## Start the Client
+The client is compiled with [parceljs](https://en.parceljs.org/getting_started.html). To start the client in development mode at http://localhost:1234/ by default, open a new terminal from any project directory and enter: 
 ```bash
 npm run dev
 ```
-To start in production, run:
+To build for production, run:
 
 ```bash
 npm run build
@@ -25,9 +25,9 @@ npm run build
 
 ## Utilities
 
-There are some `/scripts/` which you can use as utilities for your Proof of Work chain. Inside the scripts folder you'll find a few files:
+There are some `/scripts/` which can be used as utilities for your Proof of Work chain: 
 
 - `generate.js` - This will generate you a new public/private keypair `node generate`
-- `getBalance.js` - This will get the balance of a public key passed in from the command line: i.e. `node getBalance --address 049a1bad614bcd85b5f5c36703ebe94adbfef7af163b39a9dd3ddbc4f286820031dfcb3cd9b3d2fcbaec56ff95b0178b75d042968462fbfe3d604e02357125ded5`
-- `startMining.js` - This will start the miner on the server `node startMining`
-- `stopMining.js` - This will stop the miner on the server `node stopMining`
+- `getBalance.js` - Once authenticated, this will get the balance of a public key passed in from the command line: i.e. `node getBalance --address 049a1bad614bcd85b5f5c36703ebe94adbfef7af163b39a9dd3ddbc4f286820031dfcb3cd9b3d2fcbaec56ff95b0178b75d042968462fbfe3d604e02357125ded5`
+- `startMining.js` - Once authenticated, this starts the miner on the server `node startMining`
+- `stopMining.js` - Once authenticated, this stops the miner on the server `node stopMining`
