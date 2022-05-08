@@ -6,15 +6,10 @@ const app = express();
 const cors = require('cors');
 const {PRIVATE_KEY} = require('./config');
 
-
 app.use(cors());
 app.use(express.json());
 
 ////////////// SERVER /////////////////
-
-
-
-
 
 app.post('/', (req, res) => {
   const {method, params} = req.body;
@@ -28,10 +23,10 @@ app.post('/', (req, res) => {
       res.send({ blockNumber: blockchain.blockHeight() });
       return;
   }
-  //Temp Address Verification Post Method
+  //Temp Address Verification
   if(method === 'verifyAddress') {
-    const [addressInput] = params;
-      console.log('Public Key Received to Server', addressInput);
+    const [PUB, SIG, MESSAGE] = params;
+
     //toDo: create verifyaddress() function
 
     res.send({privateKey: PRIVATE_KEY}); //todo: change this to 'True/false' verification result

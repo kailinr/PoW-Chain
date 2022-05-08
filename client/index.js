@@ -15,15 +15,15 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
   const MESSAGE = msgHex(msg)
   const SIG = signature(MESSAGE)
   const PUB = pub(addressInput) 
-  console.log('MESSAGE:', MESSAGE);
-  console.log('SIGNATURE:', SIG);
-  console.log('PUB', PUB);
-  
+  // console.log('MESSAGE:', MESSAGE);
+  // console.log('SIGNATURE:', SIG);
+  // console.log('PUB', PUB);
 
+  //send to serv: pub, msgHex, signature 
   
   const params = {
     method: "verifyAddress",
-    params: [addressInput],
+    params: [PUB, SIG, MESSAGE],
     jsonrpc: "2.0", 
     // id: 1
   }
