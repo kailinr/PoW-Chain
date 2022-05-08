@@ -40,7 +40,7 @@ document.getElementById("addressSubmit").addEventListener('click', () => {
       const addressdiv = document.querySelector('#addressdiv');
       verify.innerText = 'Successfully Verified!';
       const remove = () => {
-      addressdiv.classList.add('hide');
+      // addressdiv.classList.add('hide');
       verify.innerText = "";
       }
       setTimeout(() => remove(), 2000);
