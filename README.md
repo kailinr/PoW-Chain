@@ -7,6 +7,8 @@ The application assumes the client holds both their own public and private keys.
 
 Once a user is authenticated, a mining dashboard display is revealed. The client will be permitted to start and stop their miner, as well as view their mining address balance. Mining is not permitted without prior authentication.
 
+The accepted public key for this project is: 049a1bad614bcd85b5f5c36703ebe94adbfef7af163b39a9dd3ddbc4f286820031dfcb3cd9b3d2fcbaec56ff95b0178b75d042968462fbfe3d604e02357125ded5
+
 ## Start the Server
 
 First, install all dependencies with `npm i` from the root directory in the terminal. Then, start the server with `node index` or `nodemon index`. This starts the server at port `3032` by default.
